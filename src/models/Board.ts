@@ -1,5 +1,6 @@
-import { getEmptyMatrix } from "../helper/helpers";
-import { TCell } from "../helper/types";
+
+import { getEmptyMatrix } from "../helpers/helpers";
+import { TCell } from "../helpers/types";
 import { Tail } from "./Tail";
 
 class Board {
@@ -37,7 +38,7 @@ class Board {
         const emptyCells = [];
         for (let y = 0; y < 4; y++) {
             for (let x = 0; x < 4; x++) {
-                if (!this.board[y][x].idTails.length) {
+                if (!this.board[y][x].cellTails.length) {
                     emptyCells.push({y,x})
                 }
             }
@@ -55,7 +56,7 @@ class Board {
         const value = Math.random() < 0.9 ? 2 : 4;
         const locTail = new Tail(this.newId++, y, x, value)
         this.board[y][x].value = value;
-        this.board[y][x].idTails.push(locTail);
+        this.board[y][x].cellTails.push(locTail);
         return locTail
     }
 
@@ -66,15 +67,15 @@ class Board {
                     this.score += this.board[y][x].value;
                     this.board[y][x].value = this.board[y][x].value * 2
                     this.board[y][x+1].value = 0;
-                    this.board[y][x+1].idTails.forEach((tail)=>{
+                    this.board[y][x+1].cellTails.forEach((tail)=>{
                         tail.x = this.board[y][x].x;
                         tail.y = this.board[y][x].y;
-                        this.board[y][x].idTails.push(tail);
+                        this.board[y][x].cellTails.push(tail);
                     })
-                    this.board[y][x].idTails.sort((a,b)=> a.id - b.id);
-                    this.board[y][x].idTails[0].isDelete=true;
-                    this.board[y][x].idTails[1].value = this.board[y][x].value;
-                    this.board[y][x+1].idTails = [];
+                    this.board[y][x].cellTails.sort((a,b)=> a.id - b.id);
+                    this.board[y][x].cellTails[0].isDelete=true;
+                    this.board[y][x].cellTails[1].value = this.board[y][x].value;
+                    this.board[y][x+1].cellTails = [];
                 }
             }
         }
@@ -89,14 +90,14 @@ class Board {
                 if (row[i].value === 0 && row[i + 1].value !== 0){
                     row[i].value = row[i+1].value
                     row[i+1].value = 0;
-                    row[i+1].idTails.forEach((tail)=>{
+                    row[i+1].cellTails.forEach((tail)=>{
                         tail.x = row[i].x;
                         tail.y = row[i].y;
-                        row[i].idTails.push(tail);
+                        row[i].cellTails.push(tail);
                     })
-                    row[i].idTails[0].value = row[i].value;
-                    row[i].idTails = row[i].idTails.reverse()
-                    row[i+1].idTails = [];
+                    row[i].cellTails[0].value = row[i].value;
+                    row[i].cellTails = row[i].cellTails.reverse()
+                    row[i+1].cellTails = [];
                     isRepeat = true;
                 }
             }
@@ -188,8 +189,8 @@ class Board {
         const locTails:Tail[] = [];
         this.board.forEach((row)=>{
             row.forEach((cell)=>{
-                if (cell.idTails.length) {
-                    locTails.push(...cell.idTails)
+                if (cell.cellTails.length) {
+                    locTails.push(...cell.cellTails)
                 }
             })
         })
@@ -199,7 +200,7 @@ class Board {
     deleteTails() {
         this.board.forEach((row)=>{
             row.forEach((cell)=>{
-                cell.idTails = cell.cellTails.filter((tail) => !tail.isDelete)
+                cell.cellTails = cell.cellTails.filter((tail) => !tail.isDelete)
             })
         })
     }
