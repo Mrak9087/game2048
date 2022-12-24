@@ -46,7 +46,6 @@ class Board {
         if (!emptyCells.length) {
             if (!this.canMove()){
                 this.isLose = true;
-                console.log('you lose')
             }
             return null;
         }

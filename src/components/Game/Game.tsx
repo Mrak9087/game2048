@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import Board from "../../models/Board";
 import BoardView from "../BoardView";
+import Message from "../Message";
 
 import './game.css';
 
@@ -27,6 +28,11 @@ const Game = () => {
         return '';
     },[lose, win])
 
+    const changeShow = (value:boolean) => {
+        setLose(value);
+        setWin(value);
+    }
+
     return (
         <div className="game">
             <div className="menu">
@@ -34,6 +40,7 @@ const Game = () => {
                 <button onClick={handleClick} className='btnAgain'> Заново </button>
             </div>
             <BoardView board={board} setLose={setLose} setWin={setWin} showScore={setScore}/>
+            <Message isShow={lose || win} changeShow={changeShow} text={textMessage}/>
         </div>
     )
 }
