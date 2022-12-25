@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import Board from "../../models/Board";
-import BoardView from "../BoardView";
-import Message from "../Message";
+import BoardView from "../../components/BoardView";
+import Message from "../../components/Message";
 
 import './game.css';
 
