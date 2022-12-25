@@ -35,28 +35,25 @@ class Board {
     }
 
     addTile():Tail | null {
-        const emptyCells = [];
-        for (let y = 0; y < 4; y++) {
-            for (let x = 0; x < 4; x++) {
-                if (!this.board[y][x].cellTails.length) {
-                    emptyCells.push({y,x})
-                }
-            }
+        const emptyCells = this.getEmptyCell();
+        // if (!emptyCells.length) {
+        //     if (!this.canMove()){
+        //         this.isLose = true;
+        //     }
+        //     return null;
+        // }
+
+        if (emptyCells.length){
+            const idx = Math.floor(Math.random() * emptyCells.length);
+            const y = emptyCells[idx].y;
+            const x = emptyCells[idx].x;
+            const value = Math.random() < 0.9 ? 2 : 4;
+            const locTail = new Tail(this.newId++, y, x, value)
+            this.board[y][x].value = value;
+            this.board[y][x].cellTails.push(locTail);
+            return locTail
         }
-        if (!emptyCells.length) {
-            if (!this.canMove()){
-                this.isLose = true;
-            }
-            return null;
-        }
-        const idx = Math.floor(Math.random() * emptyCells.length);
-        const y = emptyCells[idx].y;
-        const x = emptyCells[idx].x;
-        const value = Math.random() < 0.9 ? 2 : 4;
-        const locTail = new Tail(this.newId++, y, x, value)
-        this.board[y][x].value = value;
-        this.board[y][x].cellTails.push(locTail);
-        return locTail
+        return null;
     }
 
     mergeTailLeft(){
@@ -211,11 +208,15 @@ class Board {
             if (tail){
                 this.tails.push(tail);
             }
+
+            if (!this.canMove()){
+                this.isLose = true;
+            }
             resolve();
         })
     }
 
-    checkWin() {
+    private checkWin() {
         for (let y = 0; y < 4; y++){
             for (let x = 0; x < 4; x++){
                 if (this.board[y][x].value == 2048){
@@ -226,7 +227,7 @@ class Board {
         }
     }
 
-    canMove(){
+    private canMove(){
         const move1 = this.isMove();
         this.rotateMatrix();
         const move2 = this.isMove();
@@ -241,11 +242,24 @@ class Board {
     private isMove() {
         for (let y = 0; y < 4; y++){
             for (let x = 0; x < 3; x++){
-                if (this.board[y][x].value === this.board[y][x + 1].value){
+                if (!this.board[y][x].value || this.board[y][x].value === this.board[y][x + 1].value){
                     return true
                 }
             }
         }
+    }
+
+    private getEmptyCell() {
+        const result = [];
+        for (let y = 0; y < 4; y++) {
+            for (let x = 0; x < 4; x++) {
+                if (!this.board[y][x].cellTails.length) {
+                    result.push({y,x})
+                }
+            }
+        }
+
+        return result;
     }
 
 }
