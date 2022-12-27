@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom"
+import { Link, NavLink } from "react-router-dom"
 
 import './header.css';
 
@@ -6,10 +6,12 @@ const Header = () => {
     return (
         <header className="header">
             <nav>
-            <Link className="link" to='/'>Home</Link>
-            <Link className="link" to="game">Game</Link>
+                <NavLink className="link" to='/'>Главная</NavLink>
+                <NavLink className="link" to="game">Игра</NavLink>
             </nav>
-            <span className="logo">2048</span>
+            <div className="logo">
+                <span className="logoText">2048</span>
+            </div>
         </header>
     )
 }

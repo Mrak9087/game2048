@@ -44,31 +44,31 @@ const BoardView:FC<IBoardView> = ({board, setLose,setWin, showScore}) => {
         }
     }
 
-    const checkBoard = async()=>{
-        await gameBoard.checkTail();
+    const checkBoard = ()=>{
+         gameBoard.checkTail();
         checkLose();
         checkWin();
         setTails([...gameBoard.tails]);
         showScore(gameBoard.score);
     }
 
-    const handleKeyDown = useCallback(async(event:Event) => {
+    const handleKeyDown = useCallback((event:Event) => {
         if (gameBoard.isLose || gameBoard.isWin) return;
         switch ((event as KeyboardEvent).key) {
             case 'ArrowUp' :
-                await gameBoard.moveUp();
+                 gameBoard.moveUp();
                 checkBoard();
                 break
             case 'ArrowDown' :
-                await gameBoard.moveBottom();
+                 gameBoard.moveBottom();
                 checkBoard();
                 break
             case 'ArrowLeft' :
-                await gameBoard.moveLeft();
+                 gameBoard.moveLeft();
                 checkBoard();
                 break
             case 'ArrowRight' :
-                await gameBoard.moveRight();
+                 gameBoard.moveRight();
                 checkBoard();
                 break
         }

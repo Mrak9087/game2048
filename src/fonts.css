@@ -4,3 +4,17 @@
     font-weight: normal;
     font-style: normal;
 }
+
+@font-face {
+    font-family: 'MorningBreeze';
+    src: url('./assets/fonts/MorningBreeze.otf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'MorningBreeze';
+    src: url('./assets/fonts/MorningBreeze-Bold.otf');
+    font-weight: bold;
+    font-style: normal;
+}

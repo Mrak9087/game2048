@@ -22,7 +22,10 @@ const Message:FC<IMessage> = ({isShow, text, changeShow}) => {
     } 
 
     return (
-        <div className={cl} onClick={handleClick}>{text}</div>
+        <div className={cl} onClick={handleClick}>
+            <div className="close">&#10006;</div>
+            {text}
+        </div>
     )
 }
 

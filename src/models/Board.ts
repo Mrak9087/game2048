@@ -36,13 +36,6 @@ class Board {
 
     addTile():Tail | null {
         const emptyCells = this.getEmptyCell();
-        // if (!emptyCells.length) {
-        //     if (!this.canMove()){
-        //         this.isLose = true;
-        //     }
-        //     return null;
-        // }
-
         if (emptyCells.length){
             const idx = Math.floor(Math.random() * emptyCells.length);
             const y = emptyCells[idx].y;
@@ -132,43 +125,30 @@ class Board {
         }
     }
 
-    moveLeft():Promise<void>{
-        return new Promise((resolve)=>{
+    moveLeft() {
             this.deleteTails();
             this.toLeft()
-            resolve()
-        })
-        
-        
     }
 
-    moveUp():Promise<void>{
-        return new Promise((resolve)=>{
+    moveUp() {
             this.deleteTails()
             this.rotateMatrix();
             this.toLeft();
             this.rotateMatrix();
             this.rotateMatrix();
             this.rotateMatrix();
-            resolve()
-        })
     }
 
-    moveRight():Promise<void>{
-        return new Promise((resolve)=>{
+    moveRight() {
             this.deleteTails()
             this.rotateMatrix();
             this.rotateMatrix();
             this.toLeft();
             this.rotateMatrix();
             this.rotateMatrix();
-            resolve()
-        })
-        
     }
 
-    moveBottom():Promise<void>{
-        return new Promise((resolve)=>{
+    moveBottom(){
             this.deleteTails()
            
             this.rotateMatrix();
@@ -176,9 +156,6 @@ class Board {
             this.rotateMatrix();
             this.toLeft();
             this.rotateMatrix();
-            
-            resolve()
-        })
     }
 
     getTails() {
@@ -201,8 +178,7 @@ class Board {
         })
     }
 
-    checkTail():Promise<void>{
-        return new Promise((resolve)=>{
+    checkTail(){
             this.tails = this.getTails();
             const tail = this.addTile();
             if (tail){
@@ -212,8 +188,6 @@ class Board {
             if (!this.canMove()){
                 this.isLose = true;
             }
-            resolve();
-        })
     }
 
     private checkWin() {

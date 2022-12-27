@@ -25,3 +25,10 @@
 .message.active{
     height: 100vh;
 }
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    cursor: pointer;
+}
