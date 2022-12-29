@@ -22,7 +22,7 @@
     transition: height 0.5s linear;
 }
 
-.message.active{
+.message.show{
     height: 100vh;
 }
 

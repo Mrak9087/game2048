@@ -12,7 +12,7 @@ const Message:FC<IMessage> = ({isShow, text, changeShow}) => {
 
     const cl = useMemo(()=>{
         if (isShow) {
-            return 'message active'
+            return 'message show'
         }
         return 'message'
     }, [isShow])
